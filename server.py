@@ -3,7 +3,6 @@ import jwt
 
 app = Flask(__name__)
 
-# Clave secreta para firmar y validar el JWT
 SECRET_KEY = "BPM-ULIMA"
 
 @app.route('/validar_jwt', methods=['GET'])
@@ -15,10 +14,13 @@ def validar_jwt():
 
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+        print("✅ Token decodificado correctamente:", payload)  # Depuración
         return jsonify({"valido": True, "datos": payload}), 200
     except jwt.ExpiredSignatureError:
+        print("❌ Error: Token expirado")  # Depuración
         return jsonify({"valido": False, "error": "Token expirado"}), 401
     except jwt.InvalidTokenError:
+        print("❌ Error: Token inválido")  # Depuración
         return jsonify({"valido": False, "error": "Token inválido"}), 401
 
 if __name__ == '__main__':
