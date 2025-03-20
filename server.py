@@ -14,13 +14,13 @@ def validar_jwt():
 
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
-        print("✅ Token decodificado correctamente:", payload)  # Depuración
+        print("Token decodificado correctamente:", payload)  # Depuración
         return jsonify({"valido": True, "datos": payload}), 200
     except jwt.ExpiredSignatureError:
-        print("❌ Error: Token expirado")  # Depuración
+        print("Error: Token expirado")  # Depuración
         return jsonify({"valido": False, "error": "Token expirado"}), 401
     except jwt.InvalidTokenError:
-        print("❌ Error: Token inválido")  # Depuración
+        print("Error: Token inválido")  # Depuración
         return jsonify({"valido": False, "error": "Token inválido"}), 401
 
 if __name__ == '__main__':
